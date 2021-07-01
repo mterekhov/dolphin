@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E3194163268DEEDF00C039BC /* DPlayerSizeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3194162268DEEDF00C039BC /* DPlayerSizeService.swift */; };
 		E3CFC40F268C933600748739 /* DPlayerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFC40E268C933600748739 /* DPlayerAssembly.swift */; };
 		E3CFC411268C93AE00748739 /* DRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFC410268C93AE00748739 /* DRootVC.swift */; };
 		E3CFC413268C93BC00748739 /* DRootAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFC412268C93BC00748739 /* DRootAssembly.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E3194162268DEEDF00C039BC /* DPlayerSizeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DPlayerSizeService.swift; path = dolphin/DPlayerSizeService.swift; sourceTree = "<group>"; };
 		E3A24A69268C8F4C00839C49 /* dolphin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dolphin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3CFC40E268C933600748739 /* DPlayerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DPlayerAssembly.swift; path = dolphin/DPlayerAssembly.swift; sourceTree = "<group>"; };
 		E3CFC410268C93AE00748739 /* DRootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DRootVC.swift; path = dolphin/DRootVC.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			children = (
 				E3F2AE74268C91BF0053945C /* DPlayerVC.swift */,
 				E3CFC40E268C933600748739 /* DPlayerAssembly.swift */,
+				E3194162268DEEDF00C039BC /* DPlayerSizeService.swift */,
 			);
 			name = PlayerModule;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				E3CFC417268C949300748739 /* DPlayListVC.swift in Sources */,
 				E3CFC40F268C933600748739 /* DPlayerAssembly.swift in Sources */,
 				E3CFC411268C93AE00748739 /* DRootVC.swift in Sources */,
+				E3194163268DEEDF00C039BC /* DPlayerSizeService.swift in Sources */,
 				E3F2AE7C268C91BF0053945C /* DPlayerVC.swift in Sources */,
 				E3F2AE7B268C91BF0053945C /* SceneDelegate.swift in Sources */,
 			);

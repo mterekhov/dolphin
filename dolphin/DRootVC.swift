@@ -29,8 +29,19 @@ class DRootVC: UIViewController {
         view.addSubview(playerModule.view)
         view.addSubview(playListModule.view)
         
+        let dolphinLabel = UILabel(frame: .zero)
+        dolphinLabel.translatesAutoresizingMaskIntoConstraints = false
+        dolphinLabel.text = "Dolphin"
+        dolphinLabel.textAlignment = .center
+        dolphinLabel.backgroundColor = .systemGray
+        view.addSubview(dolphinLabel)
+        
         NSLayoutConstraint.activate([
-            playerModule.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            dolphinLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            dolphinLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dolphinLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            playerModule.view.topAnchor.constraint(equalTo: dolphinLabel.bottomAnchor),
             playerModule.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             playerModule.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             playerModule.view.heightAnchor.constraint(equalToConstant: ceil(view.bounds.width * sizeAspect)),
