@@ -8,11 +8,15 @@
 import UIKit
 
 class DPlayListAssembly {
-
-    public func createModule() -> UIViewController {
+    
+    public func createModule(rootModule: DRootModuleInjection) -> UIViewController & DPlayListModuleInjection {
         let viewController = DPlayListVC()
+        
+        viewController.splitTimeService = DTimeSplitterService()
+        viewController.playListService = DPlayListService()
+        viewController.rootModule = rootModule
                 
         return viewController
     }
-
+    
 }

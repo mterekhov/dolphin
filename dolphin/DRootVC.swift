@@ -7,27 +7,36 @@
 
 import UIKit
 
-class DRootVC: UIViewController {
+protocol DRootModuleInjection {
+    
+    func trackSelectedFromPlayList(newTrack: DTrack)
+    
+}
 
+class DRootVC: UIViewController, DRootModuleInjection {
+    
     private let sizeAspect: CGFloat = 3 / 7
     
     //  injections
-    public var playerModule = UIViewController()
-    public var playListModule = UIViewController()
-
+    public var playerModule: DPlayerModuleInjection?
+    public var playListModule: DPlayListModuleInjection?
+    
     override func loadView() {
         super.loadView()
         
         createLayout()
     }
     
+    //  MARK: - PlayerModuleInjection -
+    
+    func trackSelectedFromPlayList(newTrack: DTrack) {
+        print("player is going to playback new track")
+    }
+    
+    //  MARK: - Routine -
+    
     private func createLayout() {
         view.backgroundColor = .white
-        addChild(playerModule)
-        addChild(playListModule)
-        
-        view.addSubview(playerModule.view)
-        view.addSubview(playListModule.view)
         
         let dolphinLabel = UILabel(frame: .zero)
         dolphinLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -35,22 +44,37 @@ class DRootVC: UIViewController {
         dolphinLabel.textAlignment = .center
         dolphinLabel.backgroundColor = .systemGray
         view.addSubview(dolphinLabel)
-        
         NSLayoutConstraint.activate([
             dolphinLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             dolphinLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             dolphinLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
-            playerModule.view.topAnchor.constraint(equalTo: dolphinLabel.bottomAnchor),
-            playerModule.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            playerModule.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            playerModule.view.heightAnchor.constraint(equalToConstant: ceil(view.bounds.width * sizeAspect)),
             
-            playListModule.view.topAnchor.constraint(equalTo: playerModule.view.bottomAnchor),
-            playListModule.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            playListModule.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            playListModule.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        
+        var playerView = UIView(frame: .zero)
+        if let playerModule = playerModule {
+            addChild(playerModule.viewController())
+            playerView = playerModule.view()
+            view.addSubview(playerView)
+            NSLayoutConstraint.activate([
+                playerView.topAnchor.constraint(equalTo: dolphinLabel.bottomAnchor),
+                playerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                playerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                playerView.heightAnchor.constraint(equalToConstant: ceil(view.bounds.width * sizeAspect)),
+            ])
+        }
+        
+        if let playListModule = playListModule {
+            addChild(playListModule.viewController())
+            let playListView = playListModule.view()
+            view.addSubview(playListView)
+            NSLayoutConstraint.activate([
+                playListView.topAnchor.constraint(equalTo: playerView.bottomAnchor),
+                playListView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                playListView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                playListView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            ])
+        }
     }
     
 }

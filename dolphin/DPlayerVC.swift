@@ -7,8 +7,17 @@
 
 import UIKit
 
-class DPlayerVC: UIViewController {
+protocol DPlayerModuleInjection {
+
+    func playTrack(newTrack: DTrack)
     
+    func viewController() -> UIViewController
+    
+    func view() -> UIView
+
+}
+
+class DPlayerVC: UIViewController, DPlayerModuleInjection {
  
     private let PlaybackButtonsSize: CGFloat = 20
     private let trackTitleLabel = UILabel(frame: .zero)
@@ -298,6 +307,20 @@ class DPlayerVC: UIViewController {
         return buttonsContainer
     }
     
+    //  MARK: - DPlayerModuleInjection -
+
+    func playTrack(newTrack: DTrack) {
+        print("playing new track")
+    }
+
+    func viewController() -> UIViewController {
+        return self
+    }
+    
+    func view() -> UIView {
+        return view
+    }
+
     //  MARK: - Handlers -
 
     @objc

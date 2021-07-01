@@ -9,11 +9,14 @@ import UIKit
 
 class DRootAssembly {
 
-    public func createModule(screenWidth: CGFloat) -> UIViewController {
+    public func createModule(screenWidth: CGFloat) -> UIViewController & DRootModuleInjection {
         let viewController = DRootVC()
         
-        viewController.playerModule = DPlayerAssembly().createModule(screenWidth: screenWidth)
-        viewController.playListModule = DPlayListAssembly().createModule()
+        let playerModule = DPlayerAssembly().createModule(screenWidth: screenWidth)
+        viewController.playerModule = playerModule
+        
+        let playListModule = DPlayListAssembly().createModule(rootModule: viewController)
+        viewController.playListModule = playListModule
         
         return viewController
     }

@@ -9,7 +9,7 @@ import UIKit
 
 class DPlayerAssembly {
 
-    public func createModule(screenWidth: CGFloat) -> UIViewController {
+    public func createModule(screenWidth: CGFloat) -> UIViewController & DPlayerModuleInjection {
         let viewController = DPlayerVC()
         
         viewController.sizeService = DPlayerSizeService(injectScreenWidth: screenWidth)
