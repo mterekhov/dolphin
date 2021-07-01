@@ -9,15 +9,33 @@ import UIKit
 
 class DPlayerVC: UIViewController {
     
+ 
     private let PlaybackButtonsSize: CGFloat = 20
-    
+    private let trackTitleLabel = UILabel(frame: .zero)
+    private let stereoLabel = UILabel(frame: .zero)
+    private let monoLabel = UILabel(frame: .zero)
+    private let bitrateLabel = UILabel(frame: .zero)
+    private let frequencyLabel = UILabel(frame: .zero)
+    private let timeLabel = UILabel(frame: .zero)
+
     //  injections
     public var sizeService: DPlayerSizeServiceProtocol = DPlayerSizeService()
+    public var splitTimeService: DTimeSplitterServiceProtocol = DTimeSplitterService()
+    public var track = DTrack()
     
     override func loadView() {
         super.loadView()
         
         createLayout()
+    }
+    
+    public func openTrack(newTrack: DTrack) {
+        track = newTrack
+        
+        trackTitleLabel.text = "\(track.title) - \(track.author) (\(splitTimeService.timeString(lengthInSeconds: track.length)))"
+        timeLabel.text = splitTimeService.timeString(lengthInSeconds: track.length)
+        frequencyLabel.text = "\(track.frequency) kHz"
+        bitrateLabel.text = "\(track.bitrate) kbps"
     }
     
     //  MARK: - Layout -
@@ -130,32 +148,24 @@ class DPlayerVC: UIViewController {
         trackInfoContainerView.translatesAutoresizingMaskIntoConstraints = false
         trackInfoContainerView.backgroundColor = .systemGreen
         
-        let trackTitleLabel = UILabel(frame: .zero)
-        trackTitleLabel.text = "1. Cake - Opera Singer (4:06)"
         trackTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         trackTitleLabel.backgroundColor = .clear
         trackInfoContainerView.addSubview(trackTitleLabel)
         
-        let stereoLabel = UILabel(frame: .zero)
         stereoLabel.text = "stereo"
         stereoLabel.translatesAutoresizingMaskIntoConstraints = false
         stereoLabel.backgroundColor = .clear
         trackInfoContainerView.addSubview(stereoLabel)
         
-        let monoLabel = UILabel(frame: .zero)
         monoLabel.text = "mono"
         monoLabel.translatesAutoresizingMaskIntoConstraints = false
         monoLabel.backgroundColor = .clear
         trackInfoContainerView.addSubview(monoLabel)
         
-        let bitrateLabel = UILabel(frame: .zero)
-        bitrateLabel.text = "128 kbps"
         bitrateLabel.translatesAutoresizingMaskIntoConstraints = false
         bitrateLabel.backgroundColor = .clear
         trackInfoContainerView.addSubview(bitrateLabel)
         
-        let frequencyLabel = UILabel(frame: .zero)
-        frequencyLabel.text = "44 kHz"
         frequencyLabel.translatesAutoresizingMaskIntoConstraints = false
         frequencyLabel.backgroundColor = .clear
         trackInfoContainerView.addSubview(frequencyLabel)
@@ -190,9 +200,7 @@ class DPlayerVC: UIViewController {
         timingContainerView.translatesAutoresizingMaskIntoConstraints = false
         timingContainerView.backgroundColor = .systemYellow
         
-        let timeLabel = UILabel(frame: .zero)
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
-        timeLabel.text = "02:26"
         timingContainerView.addSubview(timeLabel)
         
         NSLayoutConstraint.activate([

@@ -13,6 +13,12 @@ class DPlayerAssembly {
         let viewController = DPlayerVC()
         
         viewController.sizeService = DPlayerSizeService(injectScreenWidth: screenWidth)
+        viewController.splitTimeService = DTimeSplitterService()
+        viewController.openTrack(newTrack: DTrack(title: "Opera Singer",
+                                                  author: "Cake",
+                                                  length: 150,
+                                                  frequency: 44,
+                                                  bitrate: 256))
         
         return viewController
     }
