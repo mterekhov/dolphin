@@ -10,14 +10,13 @@ import Foundation
 
 protocol DPlayListServiceProtocol {
 
-    func generateTracks(filesUrlsList: [URL]) -> [DTrack]
+    func newPlayListWithFiles(playList: DPlayList, newFilesURLsList: [URL]) -> DPlayList
 
     func recentPlayList() -> DPlayList?
 
     func availablePlayLists() -> [DPlayList]
     
-    func addTrack(playList: DPlayList, newTrack: DTrack) -> DPlayList
-    
+
     func savePlayList(playList: DPlayList, playListFileName: String)
 
 }
@@ -31,26 +30,12 @@ class DPlayListService: DPlayListServiceProtocol {
     let TracksFileExtension = "mp3"
     let PlayListJSONMagicWord = "DOLPHIN"
 
-    func generateTracks(filesUrlsList: [URL]) -> [DTrack] {
-        var tracksList = [DTrack]()
-        
-        filesUrlsList.forEach { trackURL in
-            let newTrack = DTrack(title: trackURL.lastPathComponent,
-                                  author: "",
-                                  length: 0,
-                                  frequency: 0,
-                                  bitrate: 0,
-                                  fileURL: trackURL)
-            tracksList.append(newTrack)
-        }
-        
-        return tracksList
-    }
-    
-    func addTrack(playList: DPlayList, newTrack: DTrack) -> DPlayList {
+    func newPlayListWithFiles(playList: DPlayList, newFilesURLsList: [URL]) -> DPlayList {
         var newPlayList = playList
         
-        newPlayList.tracksList.append(newTrack)
+        newFilesURLsList.forEach { newTrackUrl in
+            newPlayList.tracksList.append(generateTracks(fileUrl: newTrackUrl))
+        }
         
         return newPlayList
     }
@@ -82,4 +67,15 @@ class DPlayListService: DPlayListServiceProtocol {
         
     }
 
+    // MARK: - Routine -
+
+    private func generateTracks(fileUrl: URL) -> DTrack {
+        return DTrack(title: fileUrl.lastPathComponent,
+                              author: "",
+                              length: 0,
+                              frequency: 0,
+                              bitrate: 0,
+                              fileURL: fileUrl)
+    }
+    
 }

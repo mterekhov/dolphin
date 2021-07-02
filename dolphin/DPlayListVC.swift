@@ -33,16 +33,11 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         createLayout()
     }
     
-    public func openPlayList(newPlayList: DPlayList) {
-        playList = newPlayList
-        tableView.reloadData()
-    }
-    
     // MARK: - DFilesBrowserDelegate -
     
     func selectedFiles(filesList: [URL]) {
-        openPlayList(newPlayList: DPlayList(name: "unknown",
-                                            tracksList: playListService.generateTracks(filesUrlsList: filesList)))
+        playList = playListService.newPlayListWithFiles(playList: playList, newFilesURLsList: filesList)
+        reloadPlayList()
         router.closeFileBrowser(viewController: self)
     }
     
@@ -174,6 +169,10 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
             repeatTracksButton.trailingAnchor.constraint(equalTo: shuffleButton.leadingAnchor),
             repeatTracksButton.widthAnchor.constraint(equalToConstant: BottomButtonsHeight)
        ])
+    }
+    
+    private func reloadPlayList() {
+        tableView.reloadData()
     }
     
     // MARK: - UITableViewDelegate -
