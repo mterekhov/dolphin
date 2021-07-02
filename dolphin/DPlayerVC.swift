@@ -19,7 +19,7 @@ protocol DPlayerModuleInjection {
 
 class DPlayerVC: UIViewController, DPlayerModuleInjection {
  
-    private let PlaybackButtonsSize: CGFloat = 20
+    private let PlaybackButtonsSize: CGFloat = 40
     private let trackTitleLabel = UILabel(frame: .zero)
     private let stereoLabel = UILabel(frame: .zero)
     private let monoLabel = UILabel(frame: .zero)
@@ -118,12 +118,6 @@ class DPlayerVC: UIViewController, DPlayerModuleInjection {
         eqButton.setTitle("eq", for: .normal)
         miscContainerView.addSubview(eqButton)
 
-        let plButton = UIButton(frame: .zero)
-        plButton.translatesAutoresizingMaskIntoConstraints = false
-        plButton.addTarget(self, action: #selector(plButtonTapped), for: .touchUpInside)
-        plButton.setTitle("pl", for: .normal)
-        miscContainerView.addSubview(plButton)
-
         let miscWidth = sizeService.miscWidth()
         let buttonsWidth = ceil(miscWidth / 8)
         NSLayoutConstraint.activate([
@@ -137,14 +131,9 @@ class DPlayerVC: UIViewController, DPlayerModuleInjection {
             balanceSlider.leadingAnchor.constraint(equalTo: volumeSlider.trailingAnchor),
             balanceSlider.trailingAnchor.constraint(equalTo: eqButton.leadingAnchor),
 
-            plButton.topAnchor.constraint(equalTo: miscContainerView.topAnchor),
-            plButton.bottomAnchor.constraint(equalTo: miscContainerView.bottomAnchor),
-            plButton.trailingAnchor.constraint(equalTo: miscContainerView.trailingAnchor),
-            plButton.widthAnchor.constraint(equalToConstant: buttonsWidth),
-
             eqButton.topAnchor.constraint(equalTo: miscContainerView.topAnchor),
             eqButton.bottomAnchor.constraint(equalTo: miscContainerView.bottomAnchor),
-            eqButton.trailingAnchor.constraint(equalTo: plButton.leadingAnchor),
+            eqButton.trailingAnchor.constraint(equalTo: miscContainerView.trailingAnchor),
             eqButton.widthAnchor.constraint(equalToConstant: buttonsWidth),
         ])
         
@@ -259,28 +248,45 @@ class DPlayerVC: UIViewController, DPlayerModuleInjection {
         
         let playButton = UIButton(frame: .zero)
         playButton.translatesAutoresizingMaskIntoConstraints = false
-        playButton.setTitle("􀊃", for: .normal)
-        playButton.titleLabel?.font = UIFont(name: "Symbol", size: 20)
+        playButton.setImage(UIImage(named: "play"), for: .normal)
         playButton.addTarget(self, action: #selector(playButtonTapped), for: .touchUpInside)
         buttonsContainer.addSubview(playButton)
         
+        let pauseButton = UIButton(frame: .zero)
+        pauseButton.translatesAutoresizingMaskIntoConstraints = false
+        pauseButton.setImage(UIImage(named: "pause"), for: .normal)
+        pauseButton.addTarget(self, action: #selector(pauseButtonTapped), for: .touchUpInside)
+        buttonsContainer.addSubview(pauseButton)
+        
         let stopButton = UIButton(frame: .zero)
         stopButton.translatesAutoresizingMaskIntoConstraints = false
-        stopButton.setTitle("􀛶", for: .normal)
+        stopButton.setImage(UIImage(named: "stop"), for: .normal)
         stopButton.addTarget(self, action: #selector(stopButtonTapped), for: .touchUpInside)
         buttonsContainer.addSubview(stopButton)
         
         let nextTrackButton = UIButton(frame: .zero)
         nextTrackButton.translatesAutoresizingMaskIntoConstraints = false
-        nextTrackButton.setTitle("􀊏", for: .normal)
+        nextTrackButton.setImage(UIImage(named: "next"), for: .normal)
         nextTrackButton.addTarget(self, action: #selector(nextTrackButtonTapped), for: .touchUpInside)
         buttonsContainer.addSubview(nextTrackButton)
         
         let previousTrackButton = UIButton(frame: .zero)
         previousTrackButton.translatesAutoresizingMaskIntoConstraints = false
-        previousTrackButton.setTitle("􀊍", for: .normal)
+        previousTrackButton.setImage(UIImage(named: "previous"), for: .normal)
         previousTrackButton.addTarget(self, action: #selector(previousTrackButtonTapped), for: .touchUpInside)
         buttonsContainer.addSubview(previousTrackButton)
+        
+        let shuffleButton = UIButton(frame: .zero)
+        shuffleButton.translatesAutoresizingMaskIntoConstraints = false
+        shuffleButton.setImage(UIImage(named: "shuffle"), for: .normal)
+        shuffleButton.addTarget(self, action: #selector(shuffleButtonTapped), for: .touchUpInside)
+        buttonsContainer.addSubview(shuffleButton)
+        
+        let repeatTracksButton = UIButton(frame: .zero)
+        repeatTracksButton.translatesAutoresizingMaskIntoConstraints = false
+        repeatTracksButton.setImage(UIImage(named: "repeat"), for: .normal)
+        repeatTracksButton.addTarget(self, action: #selector(repeatTracksButtonTapped), for: .touchUpInside)
+        buttonsContainer.addSubview(repeatTracksButton)
         
         NSLayoutConstraint.activate([
             previousTrackButton.topAnchor.constraint(equalTo: buttonsContainer.topAnchor),
@@ -293,8 +299,13 @@ class DPlayerVC: UIViewController, DPlayerModuleInjection {
             playButton.widthAnchor.constraint(equalToConstant: PlaybackButtonsSize),
             playButton.heightAnchor.constraint(equalToConstant: PlaybackButtonsSize),
 
+            pauseButton.topAnchor.constraint(equalTo: buttonsContainer.topAnchor),
+            pauseButton.leadingAnchor.constraint(equalTo: playButton.trailingAnchor),
+            pauseButton.widthAnchor.constraint(equalToConstant: PlaybackButtonsSize),
+            pauseButton.heightAnchor.constraint(equalToConstant: PlaybackButtonsSize),
+
             stopButton.topAnchor.constraint(equalTo: buttonsContainer.topAnchor),
-            stopButton.leadingAnchor.constraint(equalTo: playButton.trailingAnchor),
+            stopButton.leadingAnchor.constraint(equalTo: pauseButton.trailingAnchor),
             stopButton.widthAnchor.constraint(equalToConstant: PlaybackButtonsSize),
             stopButton.heightAnchor.constraint(equalToConstant: PlaybackButtonsSize),
 
@@ -302,6 +313,16 @@ class DPlayerVC: UIViewController, DPlayerModuleInjection {
             nextTrackButton.leadingAnchor.constraint(equalTo: stopButton.trailingAnchor),
             nextTrackButton.widthAnchor.constraint(equalToConstant: PlaybackButtonsSize),
             nextTrackButton.heightAnchor.constraint(equalToConstant: PlaybackButtonsSize),
+
+            shuffleButton.topAnchor.constraint(equalTo: buttonsContainer.topAnchor),
+            shuffleButton.trailingAnchor.constraint(equalTo: buttonsContainer.trailingAnchor),
+            shuffleButton.widthAnchor.constraint(equalToConstant: PlaybackButtonsSize),
+            shuffleButton.heightAnchor.constraint(equalToConstant: PlaybackButtonsSize),
+
+            repeatTracksButton.topAnchor.constraint(equalTo: buttonsContainer.topAnchor),
+            repeatTracksButton.trailingAnchor.constraint(equalTo: shuffleButton.leadingAnchor),
+            repeatTracksButton.widthAnchor.constraint(equalToConstant: PlaybackButtonsSize),
+            repeatTracksButton.heightAnchor.constraint(equalToConstant: PlaybackButtonsSize),
         ])
 
         return buttonsContainer
@@ -324,18 +345,28 @@ class DPlayerVC: UIViewController, DPlayerModuleInjection {
     //  MARK: - Handlers -
 
     @objc
+    private func shuffleButtonTapped() {
+        print("shuffle button tapped")
+    }
+
+    @objc
+    private func repeatTracksButtonTapped() {
+        print("repeats tracks button tapped")
+    }
+
+    @objc
     private func eqButtonTapped() {
         print("eq button tapped")
     }
 
     @objc
-    private func plButtonTapped() {
-        print("pl button tapped")
+    private func playButtonTapped() {
+        print("play button tapped")
     }
 
     @objc
-    private func playButtonTapped() {
-        print("play button tapped")
+    private func pauseButtonTapped() {
+        print("pause button tapped")
     }
 
     @objc

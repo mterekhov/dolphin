@@ -35,20 +35,26 @@ class DRootVC: UIViewController, DRootModuleInjection {
     
     //  MARK: - Routine -
     
+    private func createLabel(title: String) -> UILabel {
+        let newLabel = UILabel(frame: .zero)
+        
+        newLabel.translatesAutoresizingMaskIntoConstraints = false
+        newLabel.text = title
+        newLabel.textAlignment = .center
+        newLabel.backgroundColor = .systemGray
+        
+        return newLabel
+    }
+    
     private func createLayout() {
         view.backgroundColor = .white
         
-        let dolphinLabel = UILabel(frame: .zero)
-        dolphinLabel.translatesAutoresizingMaskIntoConstraints = false
-        dolphinLabel.text = "Dolphin"
-        dolphinLabel.textAlignment = .center
-        dolphinLabel.backgroundColor = .systemGray
+        let dolphinLabel = createLabel(title: "Dolpin")
         view.addSubview(dolphinLabel)
         NSLayoutConstraint.activate([
             dolphinLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             dolphinLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            dolphinLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
+            dolphinLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
         var playerView = UIView(frame: .zero)
@@ -68,11 +74,19 @@ class DRootVC: UIViewController, DRootModuleInjection {
             addChild(playListModule.viewController())
             let playListView = playListModule.view()
             view.addSubview(playListView)
+
+            let playListLabel = createLabel(title: "PlayList")
+            view.addSubview(playListLabel)
+
             NSLayoutConstraint.activate([
-                playListView.topAnchor.constraint(equalTo: playerView.bottomAnchor),
+                playListView.topAnchor.constraint(equalTo: playListLabel.bottomAnchor),
                 playListView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 playListView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 playListView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                
+                playListLabel.topAnchor.constraint(equalTo: playerView.bottomAnchor),
+                playListLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                playListLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             ])
         }
     }

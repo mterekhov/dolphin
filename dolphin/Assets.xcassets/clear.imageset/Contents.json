@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "058-error.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

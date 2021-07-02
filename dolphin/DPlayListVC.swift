@@ -88,19 +88,19 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         let addTrackButton = UIButton(frame: .zero)
         addTrackButton.translatesAutoresizingMaskIntoConstraints = false
-        addTrackButton.setTitle("ADD", for: .normal)
+        addTrackButton.setImage(UIImage(named: "plus"), for: .normal)
         addTrackButton.addTarget(self, action: #selector(addTrackButtonTapped), for: .touchUpInside)
         bottomButtonsContainerView.addSubview(addTrackButton)
         
         let removeTrackButton = UIButton(frame: .zero)
         removeTrackButton.translatesAutoresizingMaskIntoConstraints = false
-        removeTrackButton.setTitle("REMOVE", for: .normal)
+        removeTrackButton.setImage(UIImage(named: "minus"), for: .normal)
         removeTrackButton.addTarget(self, action: #selector(removeTrackButtonTapped), for: .touchUpInside)
         bottomButtonsContainerView.addSubview(removeTrackButton)
         
         let clearPlayListButton = UIButton(frame: .zero)
         clearPlayListButton.translatesAutoresizingMaskIntoConstraints = false
-        clearPlayListButton.setTitle("CLEAR", for: .normal)
+        clearPlayListButton.setImage(UIImage(named: "clear"), for: .normal)
         clearPlayListButton.addTarget(self, action: #selector(clearPlayListButtonTapped), for: .touchUpInside)
         bottomButtonsContainerView.addSubview(clearPlayListButton)
 
