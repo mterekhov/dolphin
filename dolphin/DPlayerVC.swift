@@ -276,18 +276,6 @@ class DPlayerVC: UIViewController, DPlayerModuleInjection {
         previousTrackButton.addTarget(self, action: #selector(previousTrackButtonTapped), for: .touchUpInside)
         buttonsContainer.addSubview(previousTrackButton)
         
-        let shuffleButton = UIButton(frame: .zero)
-        shuffleButton.translatesAutoresizingMaskIntoConstraints = false
-        shuffleButton.setImage(UIImage(named: "shuffle"), for: .normal)
-        shuffleButton.addTarget(self, action: #selector(shuffleButtonTapped), for: .touchUpInside)
-        buttonsContainer.addSubview(shuffleButton)
-        
-        let repeatTracksButton = UIButton(frame: .zero)
-        repeatTracksButton.translatesAutoresizingMaskIntoConstraints = false
-        repeatTracksButton.setImage(UIImage(named: "repeat"), for: .normal)
-        repeatTracksButton.addTarget(self, action: #selector(repeatTracksButtonTapped), for: .touchUpInside)
-        buttonsContainer.addSubview(repeatTracksButton)
-        
         NSLayoutConstraint.activate([
             previousTrackButton.topAnchor.constraint(equalTo: buttonsContainer.topAnchor),
             previousTrackButton.leadingAnchor.constraint(equalTo: buttonsContainer.leadingAnchor),
@@ -313,16 +301,6 @@ class DPlayerVC: UIViewController, DPlayerModuleInjection {
             nextTrackButton.leadingAnchor.constraint(equalTo: stopButton.trailingAnchor),
             nextTrackButton.widthAnchor.constraint(equalToConstant: PlaybackButtonsSize),
             nextTrackButton.heightAnchor.constraint(equalToConstant: PlaybackButtonsSize),
-
-            shuffleButton.topAnchor.constraint(equalTo: buttonsContainer.topAnchor),
-            shuffleButton.trailingAnchor.constraint(equalTo: buttonsContainer.trailingAnchor),
-            shuffleButton.widthAnchor.constraint(equalToConstant: PlaybackButtonsSize),
-            shuffleButton.heightAnchor.constraint(equalToConstant: PlaybackButtonsSize),
-
-            repeatTracksButton.topAnchor.constraint(equalTo: buttonsContainer.topAnchor),
-            repeatTracksButton.trailingAnchor.constraint(equalTo: shuffleButton.leadingAnchor),
-            repeatTracksButton.widthAnchor.constraint(equalToConstant: PlaybackButtonsSize),
-            repeatTracksButton.heightAnchor.constraint(equalToConstant: PlaybackButtonsSize),
         ])
 
         return buttonsContainer
@@ -343,16 +321,6 @@ class DPlayerVC: UIViewController, DPlayerModuleInjection {
     }
 
     //  MARK: - Handlers -
-
-    @objc
-    private func shuffleButtonTapped() {
-        print("shuffle button tapped")
-    }
-
-    @objc
-    private func repeatTracksButtonTapped() {
-        print("repeats tracks button tapped")
-    }
 
     @objc
     private func eqButtonTapped() {

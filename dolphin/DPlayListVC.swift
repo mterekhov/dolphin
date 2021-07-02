@@ -50,6 +50,16 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     // MARK: - Handlers -
  
     @objc
+    private func shuffleButtonTapped() {
+        print("shuffle button tapped")
+    }
+
+    @objc
+    private func repeatTracksButtonTapped() {
+        print("repeats tracks button tapped")
+    }
+
+    @objc
     private func addTrackButtonTapped() {
         print("add track button tapped")
     }
@@ -104,6 +114,18 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         clearPlayListButton.addTarget(self, action: #selector(clearPlayListButtonTapped), for: .touchUpInside)
         bottomButtonsContainerView.addSubview(clearPlayListButton)
 
+        let shuffleButton = UIButton(frame: .zero)
+        shuffleButton.translatesAutoresizingMaskIntoConstraints = false
+        shuffleButton.setImage(UIImage(named: "shuffle"), for: .normal)
+        shuffleButton.addTarget(self, action: #selector(shuffleButtonTapped), for: .touchUpInside)
+        bottomButtonsContainerView.addSubview(shuffleButton)
+        
+        let repeatTracksButton = UIButton(frame: .zero)
+        repeatTracksButton.translatesAutoresizingMaskIntoConstraints = false
+        repeatTracksButton.setImage(UIImage(named: "repeat"), for: .normal)
+        repeatTracksButton.addTarget(self, action: #selector(repeatTracksButtonTapped), for: .touchUpInside)
+        bottomButtonsContainerView.addSubview(repeatTracksButton)
+        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -128,8 +150,18 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
             clearPlayListButton.topAnchor.constraint(equalTo: bottomButtonsContainerView.topAnchor),
             clearPlayListButton.bottomAnchor.constraint(equalTo: bottomButtonsContainerView.bottomAnchor),
             clearPlayListButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            clearPlayListButton.widthAnchor.constraint(equalToConstant: BottomButtonsHeight)
-        ])
+            clearPlayListButton.widthAnchor.constraint(equalToConstant: BottomButtonsHeight),
+            
+            shuffleButton.topAnchor.constraint(equalTo: bottomButtonsContainerView.topAnchor),
+            shuffleButton.bottomAnchor.constraint(equalTo: bottomButtonsContainerView.bottomAnchor),
+            shuffleButton.trailingAnchor.constraint(equalTo: clearPlayListButton.leadingAnchor),
+            shuffleButton.widthAnchor.constraint(equalToConstant: BottomButtonsHeight),
+
+            repeatTracksButton.topAnchor.constraint(equalTo: bottomButtonsContainerView.topAnchor),
+            repeatTracksButton.bottomAnchor.constraint(equalTo: bottomButtonsContainerView.bottomAnchor),
+            repeatTracksButton.trailingAnchor.constraint(equalTo: shuffleButton.leadingAnchor),
+            repeatTracksButton.widthAnchor.constraint(equalToConstant: BottomButtonsHeight)
+       ])
     }
     
     // MARK: - UITableViewDelegate -
