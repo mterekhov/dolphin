@@ -15,6 +15,7 @@ class DPlayListAssembly {
         viewController.splitTimeService = DTimeSplitterService()
         viewController.playListService = DPlayListService()
         viewController.rootModule = rootModule
+        viewController.router = DPlayListRouter()
                 
         return viewController
     }

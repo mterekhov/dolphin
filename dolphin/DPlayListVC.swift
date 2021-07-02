@@ -15,9 +15,10 @@ protocol DPlayListModuleInjection {
 
 }
 
-class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, DPlayListModuleInjection {
+class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource, DPlayListModuleInjection, DFilesBrowserDelegate {
     
     //  injections
+    public var router: DPlayListRouterProtocol = DPlayListRouter()
     public var splitTimeService: DTimeSplitterServiceProtocol = DTimeSplitterService()
     public var playListService: DPlayListServiceProtocol = DPlayListService()
     public var rootModule: DRootModuleInjection?
@@ -37,8 +38,19 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         tableView.reloadData()
     }
     
+    // MARK: - DFilesBrowserDelegate -
+    
+    func selectedFiles(filesList: [URL]) {
+        openPlayList(newPlayList: DPlayList(name: "unknown",
+                                            tracksList: playListService.generateTracks(filesUrlsList: filesList)))
+        router.closeFileBrowser(viewController: self)
+    }
+    
+    func closeBrowser() {
+        router.closeFileBrowser(viewController: self)
+    }
     // MARK: - DPlayListModuleInjection -
- 
+
     func viewController() -> UIViewController {
         return self
     }
@@ -61,7 +73,7 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
 
     @objc
     private func addTrackButtonTapped() {
-        print("add track button tapped")
+        router.openFileBrowser(viewController: self, browserDelegate: self)
     }
     
     @objc

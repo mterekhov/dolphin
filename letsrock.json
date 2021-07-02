@@ -1,9 +1,11 @@
 {
-	"magic_word":"DOLPHIN",
-	"files":[
-		{
-			"file_name":"mutter.mp3",
-			"md5":
-		}
-	]
+    "magic_word": "DOLPHIN",
+    "files":
+    [
+        {
+            "file_name": "mutter.mp3"
+        }
+    ],
+    "repeat": true,
+    "shuffle": false
 }

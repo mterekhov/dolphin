@@ -13,6 +13,10 @@
 		E3194169268E11DC00C039BC /* DPlayListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3194168268E11DC00C039BC /* DPlayListCell.swift */; };
 		E319416B268E156900C039BC /* DPlayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E319416A268E156900C039BC /* DPlayList.swift */; };
 		E319416D268E1A5900C039BC /* DPlayListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E319416C268E1A5900C039BC /* DPlayListService.swift */; };
+		E3C4FB1B268F0B6B00ED88FE /* DFilesBrowserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C4FB1A268F0B6B00ED88FE /* DFilesBrowserVC.swift */; };
+		E3C4FB20268F0DD400ED88FE /* DFilesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C4FB1F268F0DD400ED88FE /* DFilesService.swift */; };
+		E3C4FB24268F0E6700ED88FE /* DFilesBrowserAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C4FB23268F0E6700ED88FE /* DFilesBrowserAssembly.swift */; };
+		E3C4FB26268F1AEF00ED88FE /* DPlayListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C4FB25268F1AEF00ED88FE /* DPlayListRouter.swift */; };
 		E3CFC40F268C933600748739 /* DPlayerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFC40E268C933600748739 /* DPlayerAssembly.swift */; };
 		E3CFC411268C93AE00748739 /* DRootVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFC410268C93AE00748739 /* DRootVC.swift */; };
 		E3CFC413268C93BC00748739 /* DRootAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CFC412268C93BC00748739 /* DRootAssembly.swift */; };
@@ -33,6 +37,10 @@
 		E319416A268E156900C039BC /* DPlayList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DPlayList.swift; path = dolphin/DPlayList.swift; sourceTree = "<group>"; };
 		E319416C268E1A5900C039BC /* DPlayListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DPlayListService.swift; path = dolphin/DPlayListService.swift; sourceTree = "<group>"; };
 		E3A24A69268C8F4C00839C49 /* dolphin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dolphin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3C4FB1A268F0B6B00ED88FE /* DFilesBrowserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DFilesBrowserVC.swift; path = DerivedData/DFilesBrowserVC.swift; sourceTree = "<group>"; };
+		E3C4FB1F268F0DD400ED88FE /* DFilesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DFilesService.swift; path = dolphin/DFilesService.swift; sourceTree = "<group>"; };
+		E3C4FB23268F0E6700ED88FE /* DFilesBrowserAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DFilesBrowserAssembly.swift; path = dolphin/DFilesBrowserAssembly.swift; sourceTree = "<group>"; };
+		E3C4FB25268F1AEF00ED88FE /* DPlayListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DPlayListRouter.swift; path = dolphin/DPlayListRouter.swift; sourceTree = "<group>"; };
 		E3CFC40E268C933600748739 /* DPlayerAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DPlayerAssembly.swift; path = dolphin/DPlayerAssembly.swift; sourceTree = "<group>"; };
 		E3CFC410268C93AE00748739 /* DRootVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DRootVC.swift; path = dolphin/DRootVC.swift; sourceTree = "<group>"; };
 		E3CFC412268C93BC00748739 /* DRootAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DRootAssembly.swift; path = dolphin/DRootAssembly.swift; sourceTree = "<group>"; };
@@ -76,11 +84,9 @@
 		E3A24A6B268C8F4C00839C49 /* dolphin */ = {
 			isa = PBXGroup;
 			children = (
-				E319416C268E1A5900C039BC /* DPlayListService.swift */,
-				E3194162268DEEDF00C039BC /* DPlayerSizeService.swift */,
-				E3194166268E054F00C039BC /* DTimeSplitterService.swift */,
-				E3194164268DF79800C039BC /* DTrack.swift */,
-				E319416A268E156900C039BC /* DPlayList.swift */,
+				E3C4FB22268F0E4200ED88FE /* Services */,
+				E3C4FB21268F0E3D00ED88FE /* Models */,
+				E3C4FB1E268F0B7A00ED88FE /* FilesBrowserModule */,
 				E3CFC414268C93D800748739 /* RootModule */,
 				E3CFC415268C947D00748739 /* PlayListModule */,
 				E3CFC40D268C930200748739 /* PlayerModule */,
@@ -89,6 +95,35 @@
 				E3F2AE73268C91BF0053945C /* SceneDelegate.swift */,
 			);
 			name = dolphin;
+			sourceTree = "<group>";
+		};
+		E3C4FB1E268F0B7A00ED88FE /* FilesBrowserModule */ = {
+			isa = PBXGroup;
+			children = (
+				E3C4FB23268F0E6700ED88FE /* DFilesBrowserAssembly.swift */,
+				E3C4FB1A268F0B6B00ED88FE /* DFilesBrowserVC.swift */,
+			);
+			name = FilesBrowserModule;
+			sourceTree = "<group>";
+		};
+		E3C4FB21268F0E3D00ED88FE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E3194164268DF79800C039BC /* DTrack.swift */,
+				E319416A268E156900C039BC /* DPlayList.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		E3C4FB22268F0E4200ED88FE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E3C4FB1F268F0DD400ED88FE /* DFilesService.swift */,
+				E319416C268E1A5900C039BC /* DPlayListService.swift */,
+				E3194162268DEEDF00C039BC /* DPlayerSizeService.swift */,
+				E3194166268E054F00C039BC /* DTimeSplitterService.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		E3CFC40D268C930200748739 /* PlayerModule */ = {
@@ -115,6 +150,7 @@
 				E3CFC418268C94AA00748739 /* DPlayListAssembly.swift */,
 				E3CFC416268C949300748739 /* DPlayListVC.swift */,
 				E3194168268E11DC00C039BC /* DPlayListCell.swift */,
+				E3C4FB25268F1AEF00ED88FE /* DPlayListRouter.swift */,
 			);
 			name = PlayListModule;
 			sourceTree = "<group>";
@@ -199,19 +235,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3C4FB20268F0DD400ED88FE /* DFilesService.swift in Sources */,
 				E3194165268DF79800C039BC /* DTrack.swift in Sources */,
 				E3CFC419268C94AA00748739 /* DPlayListAssembly.swift in Sources */,
 				E3CFC413268C93BC00748739 /* DRootAssembly.swift in Sources */,
 				E3F2AE7E268C91BF0053945C /* AppDelegate.swift in Sources */,
 				E3194169268E11DC00C039BC /* DPlayListCell.swift in Sources */,
+				E3C4FB24268F0E6700ED88FE /* DFilesBrowserAssembly.swift in Sources */,
 				E3CFC417268C949300748739 /* DPlayListVC.swift in Sources */,
 				E3CFC40F268C933600748739 /* DPlayerAssembly.swift in Sources */,
 				E3CFC411268C93AE00748739 /* DRootVC.swift in Sources */,
 				E3194163268DEEDF00C039BC /* DPlayerSizeService.swift in Sources */,
 				E3F2AE7C268C91BF0053945C /* DPlayerVC.swift in Sources */,
 				E319416D268E1A5900C039BC /* DPlayListService.swift in Sources */,
+				E3C4FB26268F1AEF00ED88FE /* DPlayListRouter.swift in Sources */,
 				E3F2AE7B268C91BF0053945C /* SceneDelegate.swift in Sources */,
 				E319416B268E156900C039BC /* DPlayList.swift in Sources */,
+				E3C4FB1B268F0B6B00ED88FE /* DFilesBrowserVC.swift in Sources */,
 				E3194167268E054F00C039BC /* DTimeSplitterService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
