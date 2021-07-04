@@ -11,15 +11,24 @@ protocol DFilesServiceProtocol {
     
     func documentsFolderURL() -> URL
     
-    func folderFiles(folderURL: URL, filter: String?) -> [URL]
-    
+    func folderPlayableFiles(folderURL: URL) -> [URL]
+
     func isFolder(urlToCheck: URL) -> Bool
 
 }
 
 class DFilesService: DFilesServiceProtocol {
     
+    //  injections
     public var fileManager = FileManager.default
+    
+    private let playableFormats = ["mp3"]
+    
+    convenience init(injectFileManager: FileManager) {
+        self.init()
+        
+        fileManager = injectFileManager
+    }
     
     func isFolder(urlToCheck: URL) -> Bool {
         var isDir = false
@@ -34,7 +43,7 @@ class DFilesService: DFilesServiceProtocol {
         return isDir
     }
     
-    func folderFiles(folderURL: URL, filter: String?) -> [URL] {
+    func folderPlayableFiles(folderURL: URL) -> [URL] {
         var fileUrlsList = [URL]()
         do {
             fileUrlsList = try fileManager.contentsOfDirectory(at: folderURL,
@@ -46,19 +55,27 @@ class DFilesService: DFilesServiceProtocol {
             return [URL]()
         }
         
-        fileUrlsList = fileUrlsList.filter { fileURL in
-            if let filter = filter {
-                return fileURL.pathExtension == filter
-            }
-            
-            return true
+        var folders = fileUrlsList.filter { fileURL in
+            return isFolder(urlToCheck: fileURL)
         }
-        
-        fileUrlsList.sort { urlOne, urlTwo in
+        folders.sort { urlOne, urlTwo in
             return urlOne.lastPathComponent < urlTwo.lastPathComponent
         }
-        
-        return fileUrlsList
+
+        var playableFiles = fileUrlsList.filter { fileURL in
+            for format in playableFormats {
+                if fileURL.pathExtension.lowercased() != format {
+                    return false
+                }
+            }
+
+            return !isFolder(urlToCheck: fileURL)
+        }
+        playableFiles.sort { urlOne, urlTwo in
+            return urlOne.lastPathComponent < urlTwo.lastPathComponent
+        }
+
+        return folders + playableFiles
     }
     
     func documentsFolderURL() -> URL {

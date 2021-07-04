@@ -72,11 +72,6 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     
     @objc
-    private func removeTrackButtonTapped() {
-        print("remove track button tapped")
-    }
-    
-    @objc
     private func clearPlayListButtonTapped() {
         playList = DPlayList()
         tableView.reloadData()
@@ -95,7 +90,6 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
         tableView.separatorStyle = .none
-        tableView.rowHeight = UITableView.automaticDimension
         view.addSubview(tableView)
         
         let bottomButtonsContainerView = UIView(frame: .zero)
@@ -108,12 +102,6 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         addTrackButton.setImage(UIImage(named: "plus"), for: .normal)
         addTrackButton.addTarget(self, action: #selector(addTrackButtonTapped), for: .touchUpInside)
         bottomButtonsContainerView.addSubview(addTrackButton)
-        
-        let removeTrackButton = UIButton(frame: .zero)
-        removeTrackButton.translatesAutoresizingMaskIntoConstraints = false
-        removeTrackButton.setImage(UIImage(named: "minus"), for: .normal)
-        removeTrackButton.addTarget(self, action: #selector(removeTrackButtonTapped), for: .touchUpInside)
-        bottomButtonsContainerView.addSubview(removeTrackButton)
         
         let clearPlayListButton = UIButton(frame: .zero)
         clearPlayListButton.translatesAutoresizingMaskIntoConstraints = false
@@ -148,11 +136,6 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
             addTrackButton.bottomAnchor.constraint(equalTo: bottomButtonsContainerView.bottomAnchor),
             addTrackButton.leadingAnchor.constraint(equalTo: bottomButtonsContainerView.leadingAnchor),
             addTrackButton.widthAnchor.constraint(equalToConstant: BottomButtonsHeight),
-            
-            removeTrackButton.topAnchor.constraint(equalTo: bottomButtonsContainerView.topAnchor),
-            removeTrackButton.bottomAnchor.constraint(equalTo: bottomButtonsContainerView.bottomAnchor),
-            removeTrackButton.leadingAnchor.constraint(equalTo: addTrackButton.trailingAnchor),
-            removeTrackButton.widthAnchor.constraint(equalToConstant: BottomButtonsHeight),
             
             clearPlayListButton.topAnchor.constraint(equalTo: bottomButtonsContainerView.topAnchor),
             clearPlayListButton.bottomAnchor.constraint(equalTo: bottomButtonsContainerView.bottomAnchor),
@@ -205,6 +188,10 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         return newCell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return nil
     }
@@ -221,4 +208,9 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         return 0
     }
 
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        playList.tracksList.remove(at: indexPath.row)
+        tableView.reloadData()
+    }
+    
 }
