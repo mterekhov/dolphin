@@ -3,16 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41AF16622E17AADCA3E021DA /* Pods_dolphin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35572193B83FC2CEE15D3254 /* Pods_dolphin.framework */; };
 		E3194163268DEEDF00C039BC /* DPlayerSizeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3194162268DEEDF00C039BC /* DPlayerSizeService.swift */; };
 		E3194165268DF79800C039BC /* DTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3194164268DF79800C039BC /* DTrack.swift */; };
 		E3194167268E054F00C039BC /* DTimeSplitterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3194166268E054F00C039BC /* DTimeSplitterService.swift */; };
 		E3194169268E11DC00C039BC /* DPlayListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3194168268E11DC00C039BC /* DPlayListCell.swift */; };
 		E319416B268E156900C039BC /* DPlayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E319416A268E156900C039BC /* DPlayList.swift */; };
 		E319416D268E1A5900C039BC /* DPlayListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E319416C268E1A5900C039BC /* DPlayListService.swift */; };
+		E39CEA7D2693126E009F53DF /* DPlayListTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39CEA7C2693126E009F53DF /* DPlayListTrack.swift */; };
 		E3C4FB1B268F0B6B00ED88FE /* DFilesBrowserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C4FB1A268F0B6B00ED88FE /* DFilesBrowserVC.swift */; };
 		E3C4FB20268F0DD400ED88FE /* DFilesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C4FB1F268F0DD400ED88FE /* DFilesService.swift */; };
 		E3C4FB24268F0E6700ED88FE /* DFilesBrowserAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C4FB23268F0E6700ED88FE /* DFilesBrowserAssembly.swift */; };
@@ -30,12 +32,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35572193B83FC2CEE15D3254 /* Pods_dolphin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dolphin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FD86E67C89F209BE0C92D2E /* Pods-dolphin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dolphin.release.xcconfig"; path = "Target Support Files/Pods-dolphin/Pods-dolphin.release.xcconfig"; sourceTree = "<group>"; };
+		DB86A841DFBF10F1A52BF4C6 /* Pods-dolphin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dolphin.debug.xcconfig"; path = "Target Support Files/Pods-dolphin/Pods-dolphin.debug.xcconfig"; sourceTree = "<group>"; };
 		E3194162268DEEDF00C039BC /* DPlayerSizeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DPlayerSizeService.swift; path = dolphin/DPlayerSizeService.swift; sourceTree = "<group>"; };
 		E3194164268DF79800C039BC /* DTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DTrack.swift; path = dolphin/DTrack.swift; sourceTree = "<group>"; };
 		E3194166268E054F00C039BC /* DTimeSplitterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DTimeSplitterService.swift; path = dolphin/DTimeSplitterService.swift; sourceTree = "<group>"; };
 		E3194168268E11DC00C039BC /* DPlayListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DPlayListCell.swift; path = dolphin/DPlayListCell.swift; sourceTree = "<group>"; };
 		E319416A268E156900C039BC /* DPlayList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DPlayList.swift; path = dolphin/DPlayList.swift; sourceTree = "<group>"; };
 		E319416C268E1A5900C039BC /* DPlayListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DPlayListService.swift; path = dolphin/DPlayListService.swift; sourceTree = "<group>"; };
+		E39CEA7C2693126E009F53DF /* DPlayListTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DPlayListTrack.swift; path = dolphin/DPlayListTrack.swift; sourceTree = "<group>"; };
 		E3A24A69268C8F4C00839C49 /* dolphin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dolphin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3C4FB1A268F0B6B00ED88FE /* DFilesBrowserVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DFilesBrowserVC.swift; path = DerivedData/DFilesBrowserVC.swift; sourceTree = "<group>"; };
 		E3C4FB1F268F0DD400ED88FE /* DFilesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DFilesService.swift; path = dolphin/DFilesService.swift; sourceTree = "<group>"; };
@@ -59,17 +65,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41AF16622E17AADCA3E021DA /* Pods_dolphin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		903ADD5935FE7F15B459C074 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DB86A841DFBF10F1A52BF4C6 /* Pods-dolphin.debug.xcconfig */,
+				9FD86E67C89F209BE0C92D2E /* Pods-dolphin.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DBBA14E2B7AC205DB8FDC7A6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				35572193B83FC2CEE15D3254 /* Pods_dolphin.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E3A24A60268C8F4C00839C49 = {
 			isa = PBXGroup;
 			children = (
 				E3A24A6B268C8F4C00839C49 /* dolphin */,
 				E3A24A6A268C8F4C00839C49 /* Products */,
+				903ADD5935FE7F15B459C074 /* Pods */,
+				DBBA14E2B7AC205DB8FDC7A6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,6 +137,7 @@
 			children = (
 				E3194164268DF79800C039BC /* DTrack.swift */,
 				E319416A268E156900C039BC /* DPlayList.swift */,
+				E39CEA7C2693126E009F53DF /* DPlayListTrack.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -172,9 +199,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E3A24A7D268C8F4E00839C49 /* Build configuration list for PBXNativeTarget "dolphin" */;
 			buildPhases = (
+				5473B1DB2C58D83BC629B064 /* [CP] Check Pods Manifest.lock */,
 				E3A24A65268C8F4C00839C49 /* Sources */,
 				E3A24A66268C8F4C00839C49 /* Frameworks */,
 				E3A24A67268C8F4C00839C49 /* Resources */,
+				9E78E998E1408110419B1A2E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -230,6 +259,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5473B1DB2C58D83BC629B064 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-dolphin-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9E78E998E1408110419B1A2E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-dolphin/Pods-dolphin-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-dolphin/Pods-dolphin-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-dolphin/Pods-dolphin-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E3A24A65268C8F4C00839C49 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -239,6 +310,7 @@
 				E3194165268DF79800C039BC /* DTrack.swift in Sources */,
 				E3CFC419268C94AA00748739 /* DPlayListAssembly.swift in Sources */,
 				E3CFC413268C93BC00748739 /* DRootAssembly.swift in Sources */,
+				E39CEA7D2693126E009F53DF /* DPlayListTrack.swift in Sources */,
 				E3F2AE7E268C91BF0053945C /* AppDelegate.swift in Sources */,
 				E3194169268E11DC00C039BC /* DPlayListCell.swift in Sources */,
 				E3C4FB24268F0E6700ED88FE /* DFilesBrowserAssembly.swift in Sources */,
@@ -388,6 +460,7 @@
 		};
 		E3A24A7E268C8F4E00839C49 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB86A841DFBF10F1A52BF4C6 /* Pods-dolphin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -409,6 +482,7 @@
 		};
 		E3A24A7F268C8F4E00839C49 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FD86E67C89F209BE0C92D2E /* Pods-dolphin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
