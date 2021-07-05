@@ -17,6 +17,8 @@ protocol DFilesServiceProtocol {
 
     func relativeDocumentsPath(fullPathURL: URL) -> String
 
+    func fullDocumentsPath(relativePathURL: String) -> URL
+    
 }
 
 class DFilesService: DFilesServiceProtocol {
@@ -24,7 +26,7 @@ class DFilesService: DFilesServiceProtocol {
     //  injections
     public var fileManager = FileManager.default
     
-    private let playableFormats = ["mp3"]
+    private let playableFormats = ["mp3", "json"]
     
     convenience init(injectFileManager: FileManager) {
         self.init()
@@ -66,8 +68,8 @@ class DFilesService: DFilesServiceProtocol {
 
         var playableFiles = fileUrlsList.filter { fileURL in
             for format in playableFormats {
-                if fileURL.pathExtension.lowercased() != format {
-                    return false
+                if fileURL.pathExtension.lowercased() == format {
+                    return true
                 }
             }
 

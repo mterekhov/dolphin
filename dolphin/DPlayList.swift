@@ -9,7 +9,9 @@ import Foundation
 
 struct DPlayList {
     
-    public var name = ""
+    public var name = "test"
+    public var repeatPlayback = true
+    public var shuffleMode = false
     public var tracksList = [DPlayListTrack]()
     
 }

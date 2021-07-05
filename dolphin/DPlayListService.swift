@@ -13,6 +13,10 @@ import AVFoundation
 protocol DPlayListServiceProtocol {
     
     func newPlayListWithFiles(playList: DPlayList, newFilesURLsList: [URL]) -> DPlayList
+    
+    func savePlayList(playList: DPlayList)
+
+    func loadPlayList(playListURL: URL) -> DPlayList
 
 }
 
@@ -22,7 +26,6 @@ class DPlayListService: DPlayListServiceProtocol {
     let UserDefaultsDefaultPlayListNameKey = "DefaultPlayListNameKey"
     
     let PlayListFileExtension = "json"
-    let TracksFileExtension = "mp3"
     let PlayListJSONMagicWord = "DOLPHIN"
     
     //  injections
@@ -34,21 +37,104 @@ class DPlayListService: DPlayListServiceProtocol {
         fileService = injectFileSrvice
     }
     
+    // MARK: - DPlayListServiceProtocol -
+    
     func newPlayListWithFiles(playList: DPlayList, newFilesURLsList: [URL]) -> DPlayList {
         var newPlayList = playList
         
         newFilesURLsList.forEach { newTrackUrl in
-            newPlayList.tracksList.append(generateTracks(fileUrl: newTrackUrl))
+            if newTrackUrl.pathExtension == PlayListFileExtension {
+                let tmpPlayList = loadPlayList(playListURL: newTrackUrl)
+                newPlayList.name = tmpPlayList.name
+                newPlayList.repeatPlayback = tmpPlayList.repeatPlayback
+                newPlayList.shuffleMode = tmpPlayList.shuffleMode
+                newPlayList.tracksList.append(contentsOf: tmpPlayList.tracksList)
+            }
+            else {
+                newPlayList.tracksList.append(generateTracks(fileUrl: newTrackUrl))
+            }
         }
         
         return newPlayList
     }
     
+    func savePlayList(playList: DPlayList) {
+        var repeatString = "false"
+        var shuffleModeString = "false"
+        if playList.repeatPlayback {
+            repeatString = "true"
+        }
+        if playList.shuffleMode {
+            shuffleModeString = "true"
+        }
+        var jsonString = "{\"magic_word\": \"\(PlayListJSONMagicWord)\", \"repeat\":\(repeatString), \"shuffle\":\(shuffleModeString), \"name\":\"\(playList.name)\", \"files\": [{"
+        for i in 0...playList.tracksList.count - 1 {
+            if i != 0 {
+                jsonString += " {"
+            }
+            jsonString += "\"file_name\": \"\(fileService.relativeDocumentsPath(fullPathURL: playList.tracksList[i].track.fileURL))\"}"
+            if i != playList.tracksList.count - 1 {
+                jsonString += ", "
+            }
+        }
+        playList.tracksList.forEach { track in
+        }
+        jsonString += "]}"
+        do {
+            let saveURL = fileService.documentsFolderURL().appendingPathComponent(playList.name + ".\(PlayListFileExtension)")
+            print("save URL <\(saveURL.path)>")
+            try jsonString.data(using: .utf8)?.write(to: saveURL)
+        }
+        catch {
+            
+        }
+    }
+
+    func loadPlayList(playListURL: URL) -> DPlayList {
+        var jsonDict = [String:Any]()
+        
+        do {
+            let jsonData = try Data(contentsOf: playListURL)
+            jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers) as? [String: Any] ?? [String:Any]()
+        }
+        catch {
+            print(error)
+            return DPlayList()
+        }
+        
+        guard let magicWord = jsonDict["magic_word"] as? String else {
+            return DPlayList()
+        }
+        
+        if magicWord != PlayListJSONMagicWord {
+            return DPlayList()
+        }
+        
+        var newPlayList = DPlayList()
+        if let name = jsonDict["name"] as? String {
+            newPlayList.name = name
+        }
+        if let shuffle = jsonDict["shuffle"] as? Bool {
+            newPlayList.shuffleMode = shuffle
+        }
+        if let repeatPlayback = jsonDict["repeat"] as? Bool {
+            newPlayList.repeatPlayback = repeatPlayback
+        }
+        if let tracksList = jsonDict["files"] as? [[String:String]] {
+            tracksList.forEach { tracksDict in
+                if let relativeTrackPath = tracksDict["file_name"] {
+                newPlayList.tracksList.append(generateTracks(fileUrl: fileService.fullDocumentsPath(relativePathURL: relativeTrackPath)))
+                }
+            }
+        }
+
+        return newPlayList
+    }
+
     // MARK: - Routine -
     
     private func generateTracks(fileUrl: URL) -> DPlayListTrack {
         let newTrack = DPlayListTrack()
-        
         do {
             let tagEditor = ID3TagEditor()
             let audioPlayer = try AVAudioPlayer(contentsOf: fileUrl)

@@ -70,6 +70,11 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     // MARK: - Handlers -
  
     @objc
+    private func saveButtonTapped() {
+        playListService.savePlayList(playList: playList)
+    }
+
+    @objc
     private func shuffleButtonTapped() {
         print("shuffle button tapped")
     }
@@ -128,6 +133,14 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
         shuffleButton.addTarget(self, action: #selector(shuffleButtonTapped), for: .touchUpInside)
         bottomButtonsContainerView.addSubview(shuffleButton)
         
+        let saveButton = UIButton(frame: .zero)
+        saveButton.translatesAutoresizingMaskIntoConstraints = false
+        saveButton.backgroundColor = .systemGreen
+        saveButton.layer.cornerRadius = ceil(BottomButtonsHeight / 2)
+        saveButton.setTitle("S", for: .normal)
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        bottomButtonsContainerView.addSubview(saveButton)
+        
         let repeatTracksButton = UIButton(frame: .zero)
         repeatTracksButton.translatesAutoresizingMaskIntoConstraints = false
         repeatTracksButton.setImage(UIImage(named: "repeat"), for: .normal)
@@ -149,6 +162,11 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
             addTrackButton.bottomAnchor.constraint(equalTo: bottomButtonsContainerView.bottomAnchor),
             addTrackButton.leadingAnchor.constraint(equalTo: bottomButtonsContainerView.leadingAnchor),
             addTrackButton.widthAnchor.constraint(equalToConstant: BottomButtonsHeight),
+            
+            saveButton.topAnchor.constraint(equalTo: bottomButtonsContainerView.topAnchor),
+            saveButton.bottomAnchor.constraint(equalTo: bottomButtonsContainerView.bottomAnchor),
+            saveButton.leadingAnchor.constraint(equalTo: addTrackButton.trailingAnchor),
+            saveButton.widthAnchor.constraint(equalToConstant: BottomButtonsHeight),
             
             clearPlayListButton.topAnchor.constraint(equalTo: bottomButtonsContainerView.topAnchor),
             clearPlayListButton.bottomAnchor.constraint(equalTo: bottomButtonsContainerView.bottomAnchor),
