@@ -10,6 +10,6 @@ import Foundation
 struct DPlayList {
     
     public var name = ""
-    public var tracksList = [DTrack]()
+    public var tracksList = [DPlayListTrack]()
     
 }

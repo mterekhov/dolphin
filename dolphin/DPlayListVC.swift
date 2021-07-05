@@ -26,6 +26,7 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     private let BottomButtonsHeight: CGFloat = 60
     private var tableView = UITableView(frame: .zero, style: .grouped)
     private var playList = DPlayList()
+    private var selectedTrackIndex: Int = 0
 
     override func loadView() {
         super.loadView()
@@ -36,14 +37,26 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     // MARK: - DFilesBrowserDelegate -
     
     func selectedFiles(filesList: [URL]) {
-        playList = playListService.newPlayListWithFiles(playList: playList, newFilesURLsList: filesList)
+        var selectFirstTrack = false
+        if playList.tracksList.count == 0 {
+            selectFirstTrack = true
+        }
+        playList = playListService.newPlayListWithFiles(playList: playList,
+                                                        newFilesURLsList: filesList)
         reloadPlayList()
         router.closeFileBrowser(viewController: self)
+        if let firstTrack = playList.tracksList.first,
+           selectFirstTrack,
+           let rootModule = rootModule {
+            rootModule.trackSelectedFromPlayList(newTrack: firstTrack.track)
+            selectedTrackIndex = 0
+        }
     }
     
     func closeBrowser() {
         router.closeFileBrowser(viewController: self)
     }
+    
     // MARK: - DPlayListModuleInjection -
 
     func viewController() -> UIViewController {
@@ -74,7 +87,7 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     @objc
     private func clearPlayListButtonTapped() {
         playList = DPlayList()
-        tableView.reloadData()
+        reloadPlayList()
     }
     
     // MARK: - Routine -
@@ -165,7 +178,14 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
             return
         }
         
-        rootModule.trackSelectedFromPlayList(newTrack: playList.tracksList[indexPath.row])
+        rootModule.trackSelectedFromPlayList(newTrack: playList.tracksList[indexPath.row].track)
+        if let selectionoBlock = playList.tracksList[indexPath.row].selectionBlock {
+            selectionoBlock()
+        }
+        if let deselectionoBlock = playList.tracksList[selectedTrackIndex].deselectionBlock {
+            deselectionoBlock()
+        }
+        selectedTrackIndex = indexPath.row
     }
     
     // MARK: - UITableViewDataSource -
@@ -181,15 +201,26 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let newCell = DPlayListCell(style: .default, reuseIdentifier: DPlayListCellID)
         
-        newCell.configureCell(newTrackInfo: playList.tracksList[indexPath.row],
+        newCell.contentView.backgroundColor = .clear
+        newCell.configureCell(newTrackInfo: playList.tracksList[indexPath.row].track,
                               trackIndex: indexPath.row + 1,
                               splitTimeService: splitTimeService)
-        
+        playList.tracksList[indexPath.row].selectionBlock = {
+            newCell.contentView.backgroundColor = .yellow
+        }
+        playList.tracksList[indexPath.row].deselectionBlock = {
+            newCell.contentView.backgroundColor = .clear
+        }
+
+        if indexPath.row == selectedTrackIndex {
+            newCell.contentView.backgroundColor = .yellow
+        }
+                
         return newCell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 2 * FileCellHeight
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -210,7 +241,7 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         playList.tracksList.remove(at: indexPath.row)
-        tableView.reloadData()
+        reloadPlayList()
     }
     
 }

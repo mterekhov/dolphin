@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVKit
 
 protocol DPlayerModuleInjection {
 
@@ -20,6 +21,7 @@ protocol DPlayerModuleInjection {
 class DPlayerVC: UIViewController, DPlayerModuleInjection {
  
     private let PlaybackButtonsSize: CGFloat = 40
+    
     private let trackTitleLabel = UILabel(frame: .zero)
     private let stereoLabel = UILabel(frame: .zero)
     private let monoLabel = UILabel(frame: .zero)
@@ -42,7 +44,7 @@ class DPlayerVC: UIViewController, DPlayerModuleInjection {
         track = newTrack
         
         trackTitleLabel.text = "\(track.title) - \(track.author) (\(splitTimeService.timeString(lengthInSeconds: track.length)))"
-        timeLabel.text = splitTimeService.timeString(lengthInSeconds: track.length)
+        timeLabel.text = splitTimeService.timeString(lengthInSeconds: 0)
         frequencyLabel.text = "\(track.frequency) kHz"
         bitrateLabel.text = "\(track.bitrate) kbps"
     }
@@ -199,6 +201,7 @@ class DPlayerVC: UIViewController, DPlayerModuleInjection {
         timingContainerView.backgroundColor = .systemYellow
         
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        timeLabel.textAlignment = .center
         timingContainerView.addSubview(timeLabel)
         
         NSLayoutConstraint.activate([
@@ -309,7 +312,7 @@ class DPlayerVC: UIViewController, DPlayerModuleInjection {
     //  MARK: - DPlayerModuleInjection -
 
     func playTrack(newTrack: DTrack) {
-        print("playing new track")
+        openTrack(newTrack: newTrack)
     }
 
     func viewController() -> UIViewController {

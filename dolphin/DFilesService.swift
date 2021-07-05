@@ -15,6 +15,8 @@ protocol DFilesServiceProtocol {
 
     func isFolder(urlToCheck: URL) -> Bool
 
+    func relativeDocumentsPath(fullPathURL: URL) -> String
+
 }
 
 class DFilesService: DFilesServiceProtocol {
@@ -87,4 +89,25 @@ class DFilesService: DFilesServiceProtocol {
         return documentsFolderURL
     }
     
+    func relativeDocumentsPath(fullPathURL: URL) -> String {
+        return relativePath(rootPath: documentsFolderURL(), fullPathURL: fullPathURL)
+    }
+
+    func fullDocumentsPath(relativePathURL: String) -> URL {
+        return URL(fileURLWithPath: documentsFolderURL().path + "/" + relativePathURL)
+    }
+
+    private func relativePath(rootPath: URL, fullPathURL: URL) -> String {
+        var fullPathString = fullPathURL.path
+        guard let range = fullPathString.range(of: rootPath.path) else {
+            return fullPathString
+        }
+        
+        fullPathString.removeSubrange(range)
+        fullPathString.removeFirst()
+        
+        return fullPathString
+    }
+    
+
 }

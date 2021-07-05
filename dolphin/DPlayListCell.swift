@@ -18,7 +18,7 @@ class DPlayListCell: UITableViewCell {
     
     private var trackIndexLabelWidthConstraint = NSLayoutConstraint()
     private var trackLengthLabelWidthConstraint = NSLayoutConstraint()
-
+    
     override init(style: CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -34,6 +34,7 @@ class DPlayListCell: UITableViewCell {
         
         trackIndexLabel.text = "\(trackIndex). "
         trackTitleAndAuthorLabel.text = "\(newTrackInfo.title) - \(newTrackInfo.author)"
+        trackTitleAndAuthorLabel.numberOfLines = 0
         trackLengthLabel.text = splitTimeService.timeString(lengthInSeconds: newTrackInfo.length)
         
         trackIndexLabelWidthConstraint.constant = trackIndexLabel.intrinsicContentSize.width
@@ -43,6 +44,9 @@ class DPlayListCell: UITableViewCell {
     // MARK: - Routine -
 
     private func createLayout() {
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+        
         trackIndexLabel.translatesAutoresizingMaskIntoConstraints = false
         trackIndexLabel.backgroundColor = .clear
         contentView.addSubview(trackIndexLabel)

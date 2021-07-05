@@ -30,7 +30,11 @@ class DRootVC: UIViewController, DRootModuleInjection {
     //  MARK: - PlayerModuleInjection -
     
     func trackSelectedFromPlayList(newTrack: DTrack) {
-        print("player is going to playback new track")
+        guard let playerModule = playerModule else {
+            return
+        }
+        
+        playerModule.playTrack(newTrack: newTrack)
     }
     
     //  MARK: - Routine -

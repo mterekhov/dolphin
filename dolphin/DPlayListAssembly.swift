@@ -13,7 +13,7 @@ class DPlayListAssembly {
         let viewController = DPlayListVC()
         
         viewController.splitTimeService = DTimeSplitterService()
-        viewController.playListService = DPlayListService()
+        viewController.playListService = DPlayListService(injectFileSrvice: DFilesService())
         viewController.rootModule = rootModule
         viewController.router = DPlayListRouter()
                 
