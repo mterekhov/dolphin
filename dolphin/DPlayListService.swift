@@ -59,6 +59,9 @@ class DPlayListService: DPlayListServiceProtocol {
     }
     
     func savePlayList(playList: DPlayList) {
+        if playList.tracksList.count < 1 {
+            return
+        }
         var repeatString = "false"
         var shuffleModeString = "false"
         if playList.repeatPlayback {

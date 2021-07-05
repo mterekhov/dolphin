@@ -93,6 +93,9 @@ class DPlayListVC: UIViewController, UITableViewDelegate, UITableViewDataSource,
     private func clearPlayListButtonTapped() {
         playList = DPlayList()
         reloadPlayList()
+        if let rootModule = rootModule {
+            rootModule.trackSelectedFromPlayList(newTrack: DTrack())
+        }
     }
     
     // MARK: - Routine -
