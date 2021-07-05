@@ -88,7 +88,9 @@ class DFilesService: DFilesServiceProtocol {
             return URL(fileURLWithPath: "")
         }
         
-        return documentsFolderURL
+        var publicPartition = documentsFolderURL.path
+        publicPartition.removeFirst()
+        return URL(fileURLWithPath: "/private").appendingPathComponent(publicPartition)
     }
     
     func relativeDocumentsPath(fullPathURL: URL) -> String {
@@ -104,7 +106,7 @@ class DFilesService: DFilesServiceProtocol {
         guard let range = fullPathString.range(of: rootPath.path) else {
             return fullPathString
         }
-        
+
         fullPathString.removeSubrange(range)
         fullPathString.removeFirst()
         
